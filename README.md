@@ -1,6 +1,6 @@
 # DevSecOps Pipeline
 
-A public learning project exploring how security checks can be integrated into a software delivery pipeline.
+An experimental project exploring how security checks can be integrated into a software delivery pipeline.
 
 ## Focus
 
@@ -9,14 +9,34 @@ A public learning project exploring how security checks can be integrated into a
 - Repeatable build and validation workflows
 - Security-minded developer tooling
 
+## Engineering objective
+
+The project explores a simple principle:
+
+```text
+Code → Build/Test → Security Checks → Validation → Delivery
+```
+
+The long-term goal is to make security checks repeatable and useful without turning the pipeline into an opaque collection of tools.
+
 ## Status
 
-🚧 **Experimental** — this repository is currently a work in progress and should not be treated as a production security pipeline without further validation.
+🚧 **Experimental / work in progress**
 
-## About
+This repository should not be treated as a production security pipeline without further implementation, testing, and environment-specific validation.
 
-This project is part of [Wonderadroit](https://github.com/Wonderadroit)'s hands-on exploration of software engineering and application security.
+## Portfolio value
+
+This project demonstrates exploration of **DevSecOps, CI/CD automation, and security-aware software delivery**. Future work should prioritize executable pipeline stages, automated tests, security-tool configuration, and reproducible results.
 
 ## Responsible use
 
 Use security tooling only on systems and code you are authorized to assess.
+
+## Contributing
+
+Changes should be focused, documented, and validated where practical. Do not commit secrets, credentials, or sensitive target information.
+
+---
+
+Part of [Wonderadroit](https://github.com/Wonderadroit)'s public engineering portfolio.
