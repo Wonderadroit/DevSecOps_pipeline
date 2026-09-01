@@ -1,0 +1,50 @@
+name: DevSecOps Validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate security pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check required documentation
+        run: |
+          test -s README.md
+          test -s SECURITY.md
+          test -s CONTRIBUTING.md
+
+      - name: Check for common credential files
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find . -type f \( -name '.env' -o -name '*.pem' -o -name '*.key' \) -not -path './.git/*' | grep -q .; then
+            echo 'Potential credential-bearing files detected.'
+            exit 1
+          fi
+
+      - name: Validate workflow YAML
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+          PY
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Repository summary
+        run: |
+          echo "DevSecOps validation completed."
+          echo "This repository currently validates documentation and repository hygiene; it does not claim to execute a production deployment pipeline."
