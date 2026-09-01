@@ -35,14 +35,20 @@ jobs:
             exit 1
           fi
 
+      - name: Install YAML validator
+        run: python -m pip install --quiet pyyaml
+
       - name: Validate workflow YAML
         run: |
           python - <<'PY'
           from pathlib import Path
           import yaml
+
+          for path in Path('.github/workflows').glob('*.yml'):
+              with path.open(encoding='utf-8') as handle:
+                  yaml.safe_load(handle)
+              print(f'validated {path}')
           PY
-        env:
-          PYTHONUNBUFFERED: "1"
 
       - name: Repository summary
         run: |
